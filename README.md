@@ -1,2 +1,11 @@
 # Listening-to-AJAX-events
-Listening to AJAX events at a global scale
+
+// Store a reference to the native method
+let open = XMLHttpRequest.prototype.open;
+// Overwrite the native method
+XMLHttpRequest.prototype.open = function() {
+ // Assign an event listener
+ this.addEventListener("load", event => console.log(XHR), false);
+ // Call the stored reference to the native method
+ open.apply(this, arguments);
+};
